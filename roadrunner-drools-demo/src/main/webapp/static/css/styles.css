@@ -1,0 +1,148 @@
+body {
+	font-family: Verdana
+}
+
+.error {
+	color: #ff0000;
+}
+
+.tr.tablehead {
+	bgcolor: #024e80;
+	border: 1px solid black;
+}
+
+.messageblock {
+	color: #617f10;
+	background-color: #d7ee97;
+	border: 3px solid #d7ee97;
+	border-radius: 5px;
+	border-style: solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 8px;
+	margin: 16px;
+}
+
+.errorblock {
+	color: #ff0000;
+	background-color: #ffEEEE;
+	border: 3px solid #ffEEEE;
+	border-radius: 5px;
+	border-style: solid;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 8px;
+	margin: 16px;
+}
+.createpg
+{
+	margin:auto;
+	font: bold 18px/1.1em Arial, Helvetica, Sans-Serif;
+	width:50%;
+	background-color:#f4f4f4;
+	border: 3px solid #024e80;
+	border-radius: 5px;
+	border-style: solid;
+	padding: 8px;
+	margin: 16px;
+}
+
+#page-top-outer {
+	background: url(../images/shared/top_bg.jpg) top center repeat-x;
+	border-bottom: 1px solid #7e7e7e;
+	height: 40px;
+}
+
+#page-heading {
+	margin: 0 0 15px 20px;
+}
+.hyperline{
+	color: #3366BB;
+	font-family: Tahoma;
+	font-size: 18px;
+	line-height: 20px;
+	font-weight: normal;
+	
+	
+}
+.nextgen {
+	padding-top: 6px;
+	padding-right: 16px;
+	padding-bottom: 6px;
+	padding-left: 16px;
+	font-size: 16px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: normal;
+	line-height: 19px;
+	font-weight: bold;
+	font-variant: normal;
+	color: #FFFFFF;
+}
+.clear	{
+	clear: both;
+	font-size: 0px;
+	height: 0;
+	line-height: 0px;
+	margin: 10px;
+	padding: 0px;
+	}
+h1 {
+	color: #024e80;
+	font-family: Tahoma;
+	font-size: 22px;
+	line-height: 24px;
+	font-weight: bold;
+}
+
+h2 {
+	color: #393939;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 20px;
+	margin-bottom: 10px;
+}
+
+h3 {
+	color: #92b22c;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 18px;
+	margin-bottom: 10px;
+}
+
+.listTable {
+	background-color: #f4f4f4;
+	border-collapse: collapse;
+	font-family: Georgia, Garamond, Serif;
+	border: 3px solid #024e80;
+	border-radius: 5px;
+	border-style: solid;
+	color: black;
+	padding: 8px;
+	margin: 16px;
+}
+
+.listTable th {
+	width: 50%;
+	font: bold 18px/1.1em Arial, Helvetica, Sans-Serif;
+	text-shadow: 1px 1px 4px black;
+	letter-spacing: 0.3em;
+	background-color: #BDB76B; 
+	color: white;
+	
+}
+
+.listTable td, th {
+	padding: 5px; text-align:center;
+	overflow: hidden; border: 1px solid #4a7a98;
+	style:"word-break:break-all;"
+}
+
+.listTable td {
+	line-height: 1.8em;
+	
+}
+
+.listtable tr.datacellone {
+	background-color:#024e80; color: white; font:bold;  text-align:center;
+}
