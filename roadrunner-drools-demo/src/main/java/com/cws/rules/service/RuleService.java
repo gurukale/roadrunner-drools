@@ -18,7 +18,8 @@ public class RuleService {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(RuleService.class);
 
-	private static final String RULE_ULR = "http://localhost:9090/kie-drools-wb-distribution-wars-6.0.1.Final-tomcat7.0/maven2/com/order/resumption/ResumeOrder/1.0-RELEASE/ResumeOrder-1.0-RELEASE.jar";
+//	private static final String RULE_ULR = "http://localhost:9090/kie-drools-wb-distribution-wars-6.0.1.Final-tomcat7.0/maven2/com/order/resumption/ResumeOrder/1.0-RELEASE/ResumeOrder-1.0-RELEASE.jar";
+	private static final String RULE_ULR = "http://localhost:9090/kie-drools-wb-distribution-wars-6.0.1.Final-tomcat7.0/maven2/com/cpw/drools/DroolsDemo/1.0.0/DroolsDemo-1.0.0.jar";
 	private static final String USERNAME = "admin";
 	private static final String PASSWORD = "admin";
 	private static final String BASICAUTHENTICATION = "enabled";
@@ -52,6 +53,65 @@ public class RuleService {
 //		kSession.dispose();		 
 	}
 
+	public static Object createResuemOrderTemplate(KieContainer kContainer,
+			boolean propostionCheck, 
+			boolean extraCheck, 
+			boolean giftCheck, 
+			boolean insuranceCheck, 
+			boolean proofsValid, 
+			boolean creditCheckValid, 
+			boolean fraudCheckValid, 
+			String lastScreen
+) {
+
+		Object o = null;
+		String templateObject = "Order";
+		LOGGER.debug("Running rule on template " + templateObject
+				+ " \n-values - propostionCheck " + propostionCheck
+				+ " extraCheck " + extraCheck
+				+ " giftCheck " + giftCheck
+				+ " insuranceCheck " + insuranceCheck
+				+ " proofsValid " + proofsValid
+				+ " creditCheckValid " + creditCheckValid
+				+ " fraudCheckValid " + fraudCheckValid
+				+ " lastScreen " + lastScreen);
+		// String ruleTemplateClass="com.order.resumption."+templateObject;
+		String ruleTemplateClass = "com.cpw.order."
+				+ templateObject;
+		try {
+			Class cl = kContainer.getClassLoader().loadClass(ruleTemplateClass);
+			// o = cl.getConstructor(new Class[]{
+			// Boolean.class,String.class,String.class}).newInstance(validityCheckScenario,lastScreen,"");
+			o = cl.getConstructor(
+					new Class[] { 
+							Boolean.class, 
+							Boolean.class,
+							Boolean.class,
+							Boolean.class,
+							Boolean.class,
+							Boolean.class,
+							Boolean.class,
+							String.class,
+							String.class 
+							}).
+							newInstance(
+									 propostionCheck, 
+									 extraCheck, 
+									 giftCheck, 
+									 insuranceCheck, 
+									 proofsValid, 
+									 creditCheckValid, 
+									 fraudCheckValid, 
+									 lastScreen, "");
+
+		} catch (Exception e) {
+			LOGGER.error(" Error in creating Template " + e.getMessage());
+			e.printStackTrace();
+		}
+		return o;
+	}
+
+	
 	public static Object createTemplateObject(KieContainer kContainer,
 			String validityCheck, boolean validityCheckScenario,
 			String lastScreen) {
@@ -80,7 +140,38 @@ public class RuleService {
 		}
 		return o;
 	}
+	public static Object createSIMValidationTemplate(
+			KieContainer kContainer, String network, String imei,
+			boolean luhnCheckDone) {
+		Object o = null;
+		String templateObject = "Sim";
+		LOGGER.debug("Running rule on template " + templateObject
+				+ " \n-values - network " + network + " imei " + imei
+				+ " PREFIX " + imei.subSequence(0, 6) + " length "
+				+ imei.length() + " luhnCheckDone " + luhnCheckDone);
+		// String ruleTemplateClass="com.order.resumption."+templateObject;
+		String ruleTemplateClass = "com.cpw.sim." + templateObject;
+		try {
+			Class cl = kContainer.getClassLoader().loadClass(ruleTemplateClass);
+//			public Sim(java.lang.String simNumber, java.lang.String network, java.lang.Short length, 
+//					java.lang.String startsWith, 
+//					java.lang.Boolean luhnCheck, java.lang.Boolean simValid)
+			o = cl.getConstructor(
+					new Class[] { String.class, String.class, Short.class, String.class,
+							 Boolean.class, Boolean.class })
+					.newInstance(imei,network, Short.parseShort("" + imei.length()),
+							imei.subSequence(0, 6),
+							Boolean.valueOf(luhnCheckDone),
+							Boolean.FALSE );
 
+		} catch (Exception e) {
+			LOGGER.error(" Error in creating Template " + e.getMessage());
+			e.printStackTrace();
+		}
+		return o;
+	}
+
+	
 	public static Object createTemplateObjectSIMValidation(
 			KieContainer kContainer, String network, String imei,
 			boolean luhnCheckDone) {
@@ -97,6 +188,9 @@ public class RuleService {
 			Class cl = kContainer.getClassLoader().loadClass(ruleTemplateClass);
 			// String network, String imei, String startsWith, Short length,
 			// Boolean simValid, Boolean luhnCheck)
+//			public Sim(java.lang.String simNumber, java.lang.String network, java.lang.Short length, 
+//					java.lang.String startsWith, 
+//					java.lang.Boolean luhnCheck, java.lang.Boolean simValid)
 			o = cl.getConstructor(
 					new Class[] { String.class, String.class, String.class,
 							Short.class, Boolean.class, Boolean.class })

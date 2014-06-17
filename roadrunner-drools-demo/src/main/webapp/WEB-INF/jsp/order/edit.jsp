@@ -30,12 +30,12 @@
 <!--  start page-heading -->
 	<div id="page-heading">
 		<h1><spring:message code="person.edit.page.title"/></h1>
-		<a href="/" class="hyperline"><spring:message code="person.list.link.label"/></a>
+		<a href="/" class="hyperline"><spring:message code="order.list.link.label"/></a>
 	</div>
 <!-- end page-heading -->
 
 <div class=createpg>
-    <form:form action="/person/validate" commandName="mobilenumber" method="POST">
+    <form:form action="/order/validate" commandName="mobilenumber" method="POST">
         <table border="0">
         <tr>
             <td><form:label path="network"><spring:message code="person.label.network"/>:</form:label></td>

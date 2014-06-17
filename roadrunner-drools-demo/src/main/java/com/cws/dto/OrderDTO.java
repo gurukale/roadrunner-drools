@@ -30,11 +30,6 @@ public class OrderDTO {
 	private boolean creditCheckValid;
 	private boolean fraudCheckValid;
 
-	@NotEmpty
-	private String validityCheck;
-
-	private boolean validityCheckValue;
-
 	public OrderDTO() {
 
 	}
@@ -69,14 +64,6 @@ public class OrderDTO {
 
 	public void setLastScreen(String lastScreen) {
 		this.lastScreen = lastScreen;
-	}
-
-	public String getValdityCheck() {
-		return validityCheck;
-	}
-
-	public void setValdityCheck(String validityCheck) {
-		this.validityCheck = validityCheck;
 	}
 
 	/**
@@ -182,36 +169,6 @@ public class OrderDTO {
 	 */
 	public void setFraudCheckValid(boolean fraudCheckValid) {
 		this.fraudCheckValid = fraudCheckValid;
-	}
-
-	/**
-	 * @return the validityCheck
-	 */
-	public String getValidityCheck() {
-		return validityCheck;
-	}
-
-	/**
-	 * @param validityCheck
-	 *            the validityCheck to set
-	 */
-	public void setValidityCheck(String validityCheck) {
-		this.validityCheck = validityCheck;
-	}
-
-	/**
-	 * @return the validityCheckValue
-	 */
-	public boolean isValidityCheckValue() {
-		return validityCheckValue;
-	}
-
-	/**
-	 * @param validityCheckValue
-	 *            the validityCheckValue to set
-	 */
-	public void setValidityCheckValue(boolean validityCheckValue) {
-		this.validityCheckValue = validityCheckValue;
 	}
 
 	// //////////////
