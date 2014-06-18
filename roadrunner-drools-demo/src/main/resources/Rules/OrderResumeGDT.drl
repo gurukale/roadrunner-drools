@@ -1,0 +1,124 @@
+package com.cws.drools;
+
+import com.cws.dto.OrderDTO;
+
+//from row number: 1
+//PC-F
+rule "Row 1 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == false , lastScreen in ( "Extras", "Insurance", "AddCustInfo", "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Extra Page with prop not available error" );
+end
+
+//from row number: 2
+//PC/EC-F
+rule "Row 2 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == false , lastScreen in ( "Extras", "Insurance", "AddCustInfo", "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Extra Page with extra not available error" );
+end
+
+//from row number: 3
+//PC/EC/GC-F
+rule "Row 3 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == false , lastScreen in ( "Extras", "Insurance", "AddCustInfo", "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Extra Page with gift not available error" );
+end
+
+//from row number: 4
+//PC/EC/GC/IC-F
+rule "Row 4 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == false , lastScreen in ( "Insurance", "AddCustInfo", "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display insurance page with insurance not available error" );
+end
+
+//from row number: 5
+//PC/EC/GC-F IC-T
+rule "Row 5 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , lastScreen in ( "Insurance" ) )
+	then
+		f1.setNextScreen( "Display Insurance Page" );
+end
+
+//from row number: 6
+//PC/EC/GC-F IC-T
+rule "Row 6 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , lastScreen in ( "AddCustInfo" ) )
+	then
+		f1.setNextScreen( "Display Add Cust Info with pre populated fields" );
+end
+
+//from row number: 7
+//PC/EC/GC/IC/PV-F
+rule "Row 7 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == false , lastScreen in ( "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Proofs page" );
+end
+
+//from row number: 8
+//PC/EC/GC/IC/PV/CC-F
+rule "Row 8 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == true , creditCheckValid == false , lastScreen in ( "CreditCheck", "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Credit Check page with error message" );
+end
+
+//from row number: 9
+//PC/EC/GC/IC/PV/CC-T
+rule "Row 9 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == true , creditCheckValid == true , fraudCheckValid == false , lastScreen in ( "CreditCheck" ) )
+	then
+		f1.setNextScreen( "Display Credit Check page with result" );
+end
+
+//from row number: 10
+//PC/EC/GC/IC/PV/CC-T FC-F
+rule "Row 10 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == true , creditCheckValid == true , fraudCheckValid == false , lastScreen in ( "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Credit Check page with error message" );
+end
+
+//from row number: 11
+//PC/EC/GC/IC/PV/CC/FC-T
+rule "Row 11 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == true , creditCheckValid == true , fraudCheckValid == true , lastScreen in ( "CreditCheck" ) )
+	then
+		f1.setNextScreen( "Display Credit Check page with result" );
+end
+
+//from row number: 12
+//PC/EC/GC/IC/PV/CC/FC-T
+rule "Row 12 OrderResumeGDT"
+	dialect "mvel"
+	when
+		f1 : OrderDTO( propositionCheck == true , extraCheck == true , giftCheck == true , insurance == true , proofsValid == true , creditCheckValid == true , fraudCheckValid == true , lastScreen in ( "ReviewOrder" ) )
+	then
+		f1.setNextScreen( "Display Review & Confirm Order page" );
+end
+

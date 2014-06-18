@@ -30,6 +30,8 @@ public class OrderDTO {
 	private boolean creditCheckValid;
 	private boolean fraudCheckValid;
 
+	private String nextScreen;
+	
 	public OrderDTO() {
 
 	}
@@ -171,10 +173,86 @@ public class OrderDTO {
 		this.fraudCheckValid = fraudCheckValid;
 	}
 
+	/**
+	 * @return the nextScreen
+	 */
+	public String getNextScreen() {
+		return nextScreen;
+	}
+
+	/**
+	 * @param nextScreen the nextScreen to set
+	 */
+	public void setNextScreen(String nextScreen) {
+		this.nextScreen = nextScreen;
+	}
+
+
 	// //////////////
 
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+	/**
+	 * Gets a builder which is used to create Person objects.
+	 * 
+	 * @param firstName
+	 *            The first name of the created user.
+	 * @param lastName
+	 *            The last name of the created user.
+	 * @return A new Builder instance.
+	 */
+	public static Builder getBuilder(String firstName, String lastName,
+			String lastScreen, boolean propositionCheck, boolean extraCheck,
+			boolean giftCheck, boolean insurance, boolean proofsValid,
+			boolean creditCheckValid, boolean fraudCheckValid) {
+		return new Builder(firstName, lastName, lastScreen, propositionCheck,
+				extraCheck, giftCheck, insurance, proofsValid,
+				creditCheckValid, fraudCheckValid);
+	}
+
+	
+	public static class Builder {
+		OrderDTO built;
+
+		/**
+		 * Creates a new Builder instance.
+		 * 
+		 * @param firstName
+		 *            The first name of the created Person object.
+		 * @param lastName
+		 *            The last name of the created Person object.
+		 */
+		Builder(String firstName, String lastName, String lastScreen,
+
+		boolean propositionCheck, boolean extraCheck, boolean giftCheck,
+				boolean insurance, boolean proofsValid,
+				boolean creditCheckValid, boolean fraudCheckValid) {
+			built = new OrderDTO();
+			built.firstName = firstName;
+			built.lastName = lastName;
+			built.lastScreen = lastScreen;
+			built.propositionCheck = propositionCheck;
+			built.extraCheck = extraCheck;
+			built.giftCheck = giftCheck;
+
+			built.insurance = insurance;
+			built.proofsValid = proofsValid;
+			built.creditCheckValid = creditCheckValid;
+			built.fraudCheckValid = fraudCheckValid;
+
+		}
+
+		/**
+		 * Builds the new Person object.
+		 * 
+		 * @return The created Person object.
+		 */
+		public OrderDTO build() {
+			return built;
+		}
+	}
+
+	
 }

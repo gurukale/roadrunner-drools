@@ -22,6 +22,8 @@ public class MobileNumberDTO {
 
 	private boolean luhnCheckDone;
 
+	private boolean simValid;
+
 	/**
 	 * 
 	 */
@@ -92,6 +94,21 @@ public class MobileNumberDTO {
 	 */
 	public void setLuhnCheckDone(boolean luhnCheckDone) {
 		this.luhnCheckDone = luhnCheckDone;
+	}
+
+	/**
+	 * @return the simValid
+	 */
+	public boolean isSimValid() {
+		return simValid;
+	}
+
+	/**
+	 * @param simValid
+	 *            the simValid to set
+	 */
+	public void setSimValid(boolean simValid) {
+		this.simValid = simValid;
 	}
 
 }

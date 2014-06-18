@@ -1,0 +1,103 @@
+package com.cws.drools;
+
+import com.cws.dto.MobileNumberDTO;
+
+//from row number: 1
+rule "Row 1 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "EE" , imei.length <= ( 20 ) , imei.length >= ( 19 ) , prefix == "894430" , luhnCheckDone == true )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 2
+rule "Row 2 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "Orange" , imei.length <= ( 20 ) , imei.length >= ( 19 ) , prefix == "894412" , luhnCheckDone == true )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 3
+rule "Row 3 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "Vodafone" , imei.length <= ( 20 ) , imei.length >= ( 19 ) , prefix == "894410" , luhnCheckDone == true )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 4
+rule "Row 4 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "O2" , imei.length <= ( 20 ) , imei.length >= ( 19 ) , prefix == "894411" , luhnCheckDone == true )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 5
+rule "Row 5 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "3" , imei.length <= ( 20 ) , imei.length >= ( 19 ) , prefix == "894420" , luhnCheckDone == true )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 6
+rule "Row 6 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "EE" , imei.length <= ( 13 ) , imei.length >= ( 12 ) , prefix == "894430" , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 7
+rule "Row 7 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "Orange" , imei.length <= ( 13 ) , imei.length >= ( 12 ) , prefix == "894412" , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 8
+rule "Row 8 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "Vodafone" , imei.length <= ( 13 ) , imei.length >= ( 12 ) , prefix == "894410" , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 9
+rule "Row 9 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "O2" , imei.length <= ( 13 ) , imei.length >= ( 12 ) , prefix == "894411" , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 10
+rule "Row 10 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "3" , imei.length <= ( 13 ) , imei.length >= ( 12 ) , prefix == "894420" , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+
+//from row number: 11
+rule "Row 11 ValidateSimGDT"
+	dialect "mvel"
+	when
+		f1 : MobileNumberDTO( network == "EE" , imei.length <= ( 12 ) , imei.length >= ( 12 ) , luhnCheckDone == false )
+	then
+		f1.setSimValid( true );
+end
+

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cws.dto.MobileNumberDTO;
 import com.cws.dto.OrderDTO;
 import com.cws.model.Order;
+import com.cws.rules.service.RuleProcessor;
 import com.cws.rules.service.RuleService;
 import com.cws.service.OrderNotFoundException;
 import com.cws.service.OrderService;
@@ -91,22 +92,44 @@ public class OrderController extends AbstractController {
 		LOGGER.debug("Resuming Order: " + id);
 
 		Order order = orderService.findById(id);
+		OrderDTO orderDTO = OrderDTO.getBuilder(order.getFirstName(),
+				order.getLastName(), order.getLastScreen(),
+				order.getPropositionCheck(), order.getExtraCheck(),
+				order.getGiftCheck(), order.getInsurance(),
+				order.getProofsValid(), order.getCreditCheckValid(),
+				order.getFraudCheckValid()).build();
 		String returnURL = "redirect:/order/resumeTo/";
 		String resumeOrderToPage = "Not yet decided by Rules";
 		KieContainer kContainer = null;
+		/*
+		 * Calling the web based drools workbench
+		 */
+		// try {
+		// kContainer = RuleService.getKieContainer();
+		/*
+		 * Calling the stand alone RuleProcessor
+		 */
+		kContainer = RuleProcessor.getKieContainer();
+		// } catch (IOException e) {
+		// LOGGER.error("Error in reading the rools jar " + e.getMessage());
+		// e.printStackTrace();
+		// return returnURL + "Unable to read Rules";
+		// }
+		// Object msg1 = RuleService.createResuemOrderTemplate
+		// (kContainer, order.getPropositionCheck(), order.getExtraCheck(),
+		// order.getGiftCheck(), order.getInsurance(), order.getProofsValid(),
+		// order.getCreditCheckValid(), order.getFraudCheckValid(),
+		// order.getLastScreen());
+//		Object msg1 = RuleProcessor.createResuemOrderTemplate(kContainer,
+//				order.getPropositionCheck(), order.getExtraCheck(),
+//				order.getGiftCheck(), order.getInsurance(),
+//				order.getProofsValid(), order.getCreditCheckValid(),
+//				order.getFraudCheckValid(), order.getLastScreen());
 		try {
-			kContainer = RuleService.getKieContainer();
-		} catch (IOException e) {
-			LOGGER.error("Error in reading the rools jar " + e.getMessage());
-			e.printStackTrace();
-			return returnURL + "Unable to read Rules";
-		}
-		Object msg1 = RuleService.createResuemOrderTemplate
-		(kContainer, order.getPropositionCheck(), order.getExtraCheck(), order.getGiftCheck(), order.getInsurance(), order.getProofsValid(), order.getCreditCheckValid(), order.getFraudCheckValid(), 
-				order.getLastScreen());
-		try {
-			resumeOrderToPage = (String) RuleService.fireRule(kContainer,
-					"getNextScreen", msg1);
+			// resumeOrderToPage = (String) RuleService.fireRule(kContainer,
+			// "getNextScreen", msg1);
+			resumeOrderToPage = (String) RuleProcessor.fireRule(kContainer,
+					"getNextScreen", orderDTO);
 
 		} catch (NoSuchMethodException e) {
 			LOGGER.error("Error in Rule retrival " + e.getMessage());
@@ -214,20 +237,23 @@ public class OrderController extends AbstractController {
 		String resumeOrderToPage = "Sim Validation  - ";
 
 		KieContainer kContainer = null;
-		try {
-			kContainer = RuleService.getKieContainer();
-		} catch (IOException e) {
-			LOGGER.error("Error in reading the rools jar " + e.getMessage());
-			e.printStackTrace();
-			return returnURL + "Unable to read Rules";
-		}
+//		try {
+//			kContainer = RuleService.getKieContainer();
+			kContainer = RuleProcessor.getKieContainer();
+//		} catch (IOException e) {
+//			LOGGER.error("Error in reading the rools jar " + e.getMessage());
+//			e.printStackTrace();
+//			return returnURL + "Unable to read Rules";
+//		}
 
-		Object msg1 = RuleService.createSIMValidationTemplate(kContainer,
-				updated.getNetwork(), updated.getImei(),
-				updated.isLuhnCheckDone());
+//		Object msg1 = RuleService.createSIMValidationTemplate(kContainer,
+//				updated.getNetwork(), updated.getImei(),
+//				updated.isLuhnCheckDone());
 		try {
-			resumeOrderToPage += (Boolean) RuleService.fireRule(kContainer,
-					"getSimValid", msg1);
+//			resumeOrderToPage += (Boolean) RuleService.fireRule(kContainer,
+//					"getSimValid", msg1);
+			resumeOrderToPage += (Boolean) RuleProcessor.fireRule(kContainer,
+					"isSimValid", updated);
 		} catch (NoSuchMethodException e) {
 			LOGGER.error("Error in Rule retrival " + e.getMessage());
 			e.printStackTrace();
